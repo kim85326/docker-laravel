@@ -27,3 +27,13 @@ services:
       - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
+  phpmyadmin:
+    build:
+      context: ./phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1 # 自己輸入伺服器 IP
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "3000:80"
+    depends_on:
+      - mysql
