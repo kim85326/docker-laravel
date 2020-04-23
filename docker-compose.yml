@@ -37,3 +37,9 @@ services:
       - "3000:80"
     depends_on:
       - mysql
+  workspace:
+    build:
+      context: ./workspace
+    tty: true
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www
