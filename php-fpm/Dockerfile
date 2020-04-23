@@ -1,4 +1,6 @@
-FROM php:fpm
+ARG VERSION="7.3"
+
+FROM php:${VERSION}-fpm
 
 # Image Preinstalled extension: ctype json mbstring PDO tokenizer xml
 # Laravel required extension: bcmath ctype json mbstring PDO tokenizer xml

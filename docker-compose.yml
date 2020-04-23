@@ -3,6 +3,8 @@ services:
   php-fpm:
     build:
       context: ./php-fpm
+      args:
+        - VERSION=${PHP_VERSION}
     volumes:
       - ${APP_CODE_PATH_HOST}:/var/www
     ports:
@@ -10,6 +12,8 @@ services:
   nginx:
     build:
       context: ./nginx
+      args:
+        - VERSION=${NGINX_VERSION}
     volumes:
       - ${APP_CODE_PATH_HOST}:/var/www
       - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
@@ -21,6 +25,8 @@ services:
   mysql:
     build:
       context: ./mysql
+      args:
+        - VERSION=${MYSQL_VERSION}
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     volumes:
@@ -40,6 +46,9 @@ services:
   workspace:
     build:
       context: ./workspace
+      args:
+        - PHP_VERSION=${PHP_VERSION}
+        - NODE_VERSION=${NODE_VERSION}
     tty: true
     volumes:
       - ${APP_CODE_PATH_HOST}:/var/www

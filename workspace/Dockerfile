@@ -4,12 +4,12 @@ FROM docker.io/centos:centos7
 RUN yum install -y epel-release
 
 # 安裝 PHP
-ARG PHP_VERSION="73"
+ARG PHP_VERSION="7.3"
 RUN curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 RUN curl -O http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 RUN rpm -Uvh epel-release-latest-7.noarch.rpm
 RUN rpm -Uvh remi-release-7.rpm
-RUN yum-config-manager --enable remi-php${PHP_VERSION}
+RUN yum-config-manager --enable remi-php$(echo ${PHP_VERSION} | cut -c 1,3)
 RUN yum install -y php-json php-xml php-mbstring php-mysqlnd php-gd php-mcrypt php-cli php-pdo
 
 # 安裝 Composer
