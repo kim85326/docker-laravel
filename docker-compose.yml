@@ -9,6 +9,11 @@ services:
       - ${APP_CODE_PATH_HOST}:/var/www
     ports:
       - "9000:9000"
+  laravel-echo-server:
+    build:
+      context: ./laravel-echo-server
+    ports:
+      - "6001:6001"
   nginx:
     build:
       context: ./nginx
@@ -22,6 +27,7 @@ services:
       - "80:80"
     depends_on:
       - php-fpm
+      - laravel-echo-server
   mysql:
     build:
       context: ./mysql

@@ -1,0 +1,9 @@
+{
+  "private": true,
+  "dependencies": {
+    "laravel-echo-server": "^1.6.0"
+  },
+  "scripts": {
+    "start": "laravel-echo-server start"
+  }
+}
