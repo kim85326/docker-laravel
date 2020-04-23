@@ -10,7 +10,7 @@ RUN curl -O http://rpms.remirepo.net/enterprise/remi-release-7.rpm
 RUN rpm -Uvh epel-release-latest-7.noarch.rpm
 RUN rpm -Uvh remi-release-7.rpm
 RUN yum-config-manager --enable remi-php${PHP_VERSION}
-RUN yum install -y php-mysqlnd php-xml php-soap php-xmlrpc php-mbstring php-json php-gd php-mcrypt php-cli php-fpm php-opcache php-process
+RUN yum install -y php-json php-xml php-mbstring php-mysqlnd php-gd php-mcrypt php-cli php-pdo
 
 # 安裝 Composer
 RUN yum install -y composer
