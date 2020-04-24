@@ -1,4 +1,9 @@
 version: "3.7"
+networks:
+  frontend:
+    driver: bridge
+  backend:
+    driver: bridge
 services:
   php-fpm:
     build:
@@ -9,11 +14,16 @@ services:
       - ${APP_CODE_PATH_HOST}:/var/www
     ports:
       - "9000:9000"
+    networks:
+      - backend
   laravel-echo-server:
     build:
       context: ./laravel-echo-server
     ports:
       - "6001:6001"
+    networks:
+      - frontend
+      - backend
   nginx:
     build:
       context: ./nginx
@@ -28,6 +38,13 @@ services:
     depends_on:
       - php-fpm
       - laravel-echo-server
+    networks:
+      frontend:
+      backend:
+        aliases:
+          # Laravel echo server 與 Laravel 互 call 需要
+          - ${OUTGOING_DOMAIN}
+          - ${OUTGOING_WEBSOCKET_DOMAIN}
   mysql:
     build:
       context: ./mysql
@@ -39,6 +56,8 @@ services:
       - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      - backend
   phpmyadmin:
     build:
       context: ./phpmyadmin
@@ -49,6 +68,9 @@ services:
       - "3000:80"
     depends_on:
       - mysql
+    networks:
+      - frontend
+      - backend
   workspace:
     build:
       context: ./workspace
@@ -58,3 +80,6 @@ services:
     tty: true
     volumes:
       - ${APP_CODE_PATH_HOST}:/var/www
+    networks:
+      - frontend
+      - backend
