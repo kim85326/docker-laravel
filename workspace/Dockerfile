@@ -3,6 +3,9 @@ FROM docker.io/centos:centos7
 # 安裝 EPEL 擴充資源庫
 RUN yum install -y epel-release
 
+# 安裝網路工具
+RUN yum install -y net-tools bind-utils
+
 # 安裝 PHP
 ARG PHP_VERSION="7.3"
 RUN curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
