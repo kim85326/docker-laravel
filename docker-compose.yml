@@ -16,6 +16,19 @@ services:
       - "9000:9000"
     networks:
       - backend
+  php-worker:
+    build:
+      context: ./php-worker
+      args:
+        - VERSION=${PHP_VERSION}
+    volumes:
+      - ${APP_CODE_PATH_HOST}:/var/www
+      - ${PHP_WORKER_LOG_PATH}:/var/log/supervisor
+      - ${PHP_WORKER_CONF_PATH}:/etc/supervisord.d
+    ports:
+      - "9001:9001"
+    networks:
+      - backend
   laravel-echo-server:
     build:
       context: ./laravel-echo-server
