@@ -9,4 +9,4 @@ COPY ./package.json /usr/src/app/
 COPY ./laravel-echo-server.json /usr/src/app/
 RUN npm install
 
-CMD ["npm", "start", "--force"]
+CMD ["npm", "start", "--", "--force"]
